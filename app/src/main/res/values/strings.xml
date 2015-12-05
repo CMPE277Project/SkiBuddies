@@ -12,4 +12,6 @@
     <string name="title_activity_profile_tab">ProfileTab</string>
     <string name="title_activity_event_tab">EventTab</string>
     <string name="title_activity_invite_tab">InviteTab</string>
+
+    <string name="title_activity_session">SessionActivity</string>
 </resources>
