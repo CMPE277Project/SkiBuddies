@@ -113,14 +113,14 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerFra
         // Set up the action bar
 //        ActionBar actionBar = getActionBar();
 //        actionBar.setDisplayShowTitleEnabled(false);
-
-
-
-        //Show the custom ActionBar with the icon_back
+//
+//
+//
+////        Show the custom ActionBar with the icon_back
 //        View mActionBarView = getLayoutInflater().inflate(R.layout.action_bar_cancel, null);
 //        actionBar.setCustomView(mActionBarView);
 //        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-
+//
 //        ibCancel = (ImageButton) findViewById(R.id.button_cancel);
 //        ibCancel.setOnClickListener(new View.OnClickListener() {
 //            @Override
