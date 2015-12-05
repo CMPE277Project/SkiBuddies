@@ -11,6 +11,9 @@ import com.parse.ParseObject;
  * Created by davchen on 12/4/15.
  */
 public class SkiBuddiesApplication extends Application {
+
+    private static final String appId= "PwkOGqFnv97ycE8GRkiv8dKwwDbVGhuoAmfp70N8";
+    private static final String clientKey = "HKfztWDeYtByougLmaEN2rxLmkKxR2kTdQUn09zs";
     @Override
     public void onCreate() {
         super.onCreate();
@@ -19,9 +22,8 @@ public class SkiBuddiesApplication extends Application {
         Parse.enableLocalDatastore(this);
 
         // Add your initialization code here
-        Parse.initialize(this, "PwkOGqFnv97ycE8GRkiv8dKwwDbVGhuoAmfp70N8", "HKfztWDeYtByougLmaEN2rxLmkKxR2kTdQUn09zs");
+        Parse.initialize(this, appId, clientKey);
 
-        //Comment
         ParseFacebookUtils.initialize(this);
 
         ParseObject.registerSubclass(Event.class);
