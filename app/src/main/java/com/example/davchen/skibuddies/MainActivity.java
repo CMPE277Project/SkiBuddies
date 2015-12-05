@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -27,8 +29,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button button;
     private String name;
+    private String userId;
     private ParseUser parseuser;
     private Button createEventBtn;
+
+    private Button getEventBtn;
+
+    private static final String TAG = MainActivity.class.getSimpleName();
+
 
 
         @Override
@@ -42,6 +50,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this, NewEventActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            getEventBtn = (Button) findViewById(R.id.get_event);
+            getEventBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, EventDetail.class);
                     startActivity(intent);
                 }
             });
@@ -101,25 +118,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         private void getUserDetailsFromFB() {
             new GraphRequest(
-                    AccessToken.getCurrentAccessToken(), "/me", null, HttpMethod.GET, new GraphRequest.Callback() {
+                    AccessToken.getCurrentAccessToken(),"/me", null, HttpMethod.GET, new GraphRequest.Callback() {
                 @Override
                 public void onCompleted(GraphResponse graphResponse) {
 
                     try {
                         name = graphResponse.getJSONObject().getString("name");
+                        userId = graphResponse.getJSONObject().getString("id");
+                        Log.d("Name: ", name);
+
                         saveUserInformationToParse();
                     } catch (JSONException e) {
                         e.getLocalizedMessage();
                     }
                 }
-            });
+            }).executeAsync();
 
         }
 
         private void getUserDetailsFromParse() {
 
             parseuser = ParseUser.getCurrentUser();
-
+            name = parseuser.getUsername();
+            userId = parseuser.getString("UserId");
+            Log.d("Name: ", name);
+            Toast.makeText(getApplicationContext(), "Hello "+name, Toast.LENGTH_LONG).show();
+            try {
+                gotoNextActivity();
+            }
+            catch (Exception ex){
+                Log.e(TAG, ex.getLocalizedMessage());
+            }
         }
 
         //stores information fetched from facebook to parse....
@@ -127,13 +156,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             parseuser = ParseUser.getCurrentUser();
 
             parseuser.setUsername(name);
+            parseuser.put("UserId", userId);
 
             parseuser.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
 
+                    Toast.makeText(getApplicationContext(), name + "Successfully signed up", Toast.LENGTH_LONG).show();
+
+                    try{
+                        gotoNextActivity();
+                    }
+                    catch(Exception ex) {
+                        Log.e(TAG, ex.getLocalizedMessage());
+                    }
                 }
             });
+        }
+
+        private void gotoNextActivity() {
+            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+            intent.putExtra("Name", name);
+            intent.putExtra("Id", userId);
+            startActivity(intent);
         }
     }
 
