@@ -1,19 +1,31 @@
 package com.example.davchen.skibuddies;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.parse.ParseFacebookUtils;
 
 public class MainActivity extends AppCompatActivity {
+    private Button createEventBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        createEventBtn = (Button)findViewById(R.id.create_event);
+        createEventBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NewEventActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
