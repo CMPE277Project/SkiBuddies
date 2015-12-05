@@ -1,9 +1,12 @@
 package com.example.davchen.skibuddies;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+<<<<<<< HEAD
+import android.support.v7.app.AppCompatActivity;
+=======
 import android.util.Log;
+>>>>>>> master
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,14 +33,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String name;
     private ParseUser parseuser;
 
+<<<<<<< HEAD
+public class MainActivity extends AppCompatActivity {
+    private Button createEventBtn;
+=======
+>>>>>>> master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+<<<<<<< HEAD
+        createEventBtn = (Button)findViewById(R.id.create_event);
+        createEventBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NewEventActivity.class);
+                startActivity(intent);
+            }
+        });
+=======
         button = (Button)findViewById(R.id.button);
         button.setOnClickListener(this);
+>>>>>>> master
     }
 
     @Override
