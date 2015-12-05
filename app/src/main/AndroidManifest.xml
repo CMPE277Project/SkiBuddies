@@ -38,6 +38,15 @@
             android:name=".SessionActivity"
             android:label="@string/title_activity_session" >
         </activity>
+        <activity
+            android:name=".EventDetail"
+            android:label="@string/title_activity_event_detail" >
+        </activity>
+        <activity
+            android:name=".FragmentContainerActivity"
+            android:label="@string/title_activity_fragment_container" >
+        </activity>
+
     </application>
 
 </manifest>

@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String name;
     private ParseUser parseuser;
     private Button createEventBtn;
+    private Button getEventBtn;
 
 
         @Override
@@ -42,6 +43,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this, NewEventActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            getEventBtn = (Button) findViewById(R.id.get_event);
+            getEventBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, EventDetail.class);
                     startActivity(intent);
                 }
             });
