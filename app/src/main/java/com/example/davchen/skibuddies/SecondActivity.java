@@ -81,6 +81,12 @@ public class SecondActivity extends AppCompatActivity {
             return true;
         }
 
+        if(id == R.id.createEventMenu) {
+            Intent intent = new Intent(this, NewEventActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }

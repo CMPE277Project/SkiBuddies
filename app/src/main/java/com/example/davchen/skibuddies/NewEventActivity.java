@@ -3,6 +3,7 @@ package com.example.davchen.skibuddies;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerFra
 
     private Event event;
     private ParseUser user;
+    private Toolbar toolbar;
 
     private DatePickerFragment myDatePickerDialogStart;
     private DatePickerFragment myDatePickerDialogEnd;
@@ -110,6 +112,9 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerFra
             }
         });
 
+
+        toolbar = (Toolbar)findViewById(R.id.newActivityToolBar);
+        setSupportActionBar(toolbar);
         // Set up the action bar
 //        ActionBar actionBar = getActionBar();
 //        actionBar.setDisplayShowTitleEnabled(false);

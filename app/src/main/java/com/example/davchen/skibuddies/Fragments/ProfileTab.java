@@ -18,6 +18,16 @@ public class ProfileTab extends Fragment {
 
     private ProfilePictureView profilePictureView;
     private TextView textView;
+    private String name;
+    private String userId;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        name = getActivity().getIntent().getStringExtra("Name");
+        userId = getActivity().getIntent().getStringExtra("Id");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -25,16 +35,11 @@ public class ProfileTab extends Fragment {
         View rootView = inflater.inflate(R.layout.profile_tab_fragment, container, false);
         profilePictureView = (ProfilePictureView)rootView.findViewById(R.id.facebookProfileId);
         textView = (TextView)rootView.findViewById(R.id.profilePicName);
-
         displayName();
         return rootView;
     }
 
     private void displayName() {
-
-        String name = getActivity().getIntent().getStringExtra("Name");
-        String userId = getActivity().getIntent().getStringExtra("Id");
-
         profilePictureView.setProfileId(userId);
         textView.setText(name);
     }
