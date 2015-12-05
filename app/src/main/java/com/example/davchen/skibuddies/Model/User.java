@@ -1,4 +1,4 @@
-package com.example.davchen.skibuddies;
+package com.example.davchen.skibuddies.Model;
 
 import com.parse.ParseClassName;
 
