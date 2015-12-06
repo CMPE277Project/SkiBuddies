@@ -1,9 +1,12 @@
 package com.example.davchen.skibuddies;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.facebook.login.widget.ProfilePictureView;
@@ -15,11 +18,25 @@ public class EventInformation extends AppCompatActivity {
     private String name;
     private ProfilePictureView profilePictureView;
     private TextView textView1, textView2, textView3;
+    private Intent intent;
+
+
+    private Button sessionButton;   //button for start session
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_information);
+
+        sessionButton = (Button) findViewById(R.id.startSessionId);
+        sessionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(EventInformation.this, SessionActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
