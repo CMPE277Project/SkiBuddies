@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.davchen.skibuddies.Model.Event;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -37,11 +38,14 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerFra
     private EditText etTitle, etDescription,tvInviteText;
     private TextView tvStart, tvEnd,tvInvite;
     private Date currentDate;
+    private ParseObject post; //creates a
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_event);
+
+
 
         event = new Event();
 
@@ -183,6 +187,7 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerFra
                 event.setDescription(etDescription.getText().toString());
                 event.setStartTime(tvStart.getText().toString());
                 event.setEndTime(tvEnd.getText().toString());
+               // ev
 
                 //Save event and return
                 event.saveInBackground(new SaveCallback() {

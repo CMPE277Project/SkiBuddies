@@ -108,10 +108,10 @@ public class EventTab extends Fragment implements AdapterView.OnItemClickListene
             @Override
             public View getView(int position, View convertView, ViewGroup parent){
 
-              //  if(convertView == null){
+                if(convertView == null){
                     Log.d("L", "LL");
                     convertView = getActivity().getLayoutInflater().inflate(R.layout.listview_event_item, parent, false);
-               // }
+                }
 
 
                 Log.d(TAG, "I im in list adapter");

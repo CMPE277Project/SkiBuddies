@@ -37,8 +37,7 @@
         <activity
             android:name=".SecondActivity"
             android:label="@string/title_activity_second" >
-            </activity>
-
+        </activity>
         <activity
             android:name=".SessionActivity"
             android:label="@string/title_activity_session" >
@@ -51,7 +50,10 @@
             android:name=".FragmentContainerActivity"
             android:label="@string/title_activity_fragment_container" >
         </activity>
-
+        <activity
+            android:name=".EventInformation"
+            android:label="@string/title_activity_event_information" >
+        </activity>
     </application>
 
 </manifest>

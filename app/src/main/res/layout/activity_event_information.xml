@@ -1,0 +1,142 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.davchen.skibuddies.EventInformation">
+
+    <include
+        android:id="@+id/eventInformationToolBar"
+        layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:layout_below="@id/eventInformationToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/createdByEvent"
+                android:layout_margin="5dp"
+                android:text="CreatedBy:"/>
+            <com.facebook.login.widget.ProfilePictureView
+                android:id="@+id/Idinfo"
+                android:layout_below="@id/createdByEvent"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+            </com.facebook.login.widget.ProfilePictureView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/IdinfoTextName"
+                android:layout_below="@id/Idinfo"
+                android:text="TextName"
+                android:layout_margin="7dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/titleInformation"
+                android:text="Title: "
+                android:layout_toRightOf="@id/Idinfo"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="25dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Hello"
+                android:layout_toRightOf="@id/titleInformation"
+                android:layout_alignBaseline="@id/titleInformation"
+                android:layout_marginLeft="4dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/descriptionEvent"
+                android:text="Description: "
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/titleInformation"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/Idinfo" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/descriptionText"
+                android:hint="Hello"
+                android:layout_alignBaseline="@id/descriptionEvent"
+                android:layout_toRightOf="@id/descriptionEvent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/startDateEventInfo"
+                    android:text="StartDate: "
+                    android:layout_below="@id/descriptionEvent"
+                    android:layout_toRightOf="@id/Idinfo"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginLeft="20dp"
+            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/startDateEventInfoText"
+                android:text="EndDate: "
+                android:layout_below="@id/descriptionText"
+                android:layout_alignBaseline="@id/startDateEventInfo"
+                android:layout_toRightOf="@id/startDateEventInfo"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/endDateEventInfo"
+                android:text="EndDate: "
+                android:layout_below="@id/startDateEventInfo"
+                android:layout_toRightOf="@id/Idinfo"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="21dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/endDateEventText"
+                android:text="EndDate: "
+                android:layout_below="@id/startDateEventInfo"
+                android:layout_toRightOf="@id/endDateEventInfo"
+                android:layout_marginTop="6dp"
+                android:layout_alignBaseline="@id/endDateEventInfo"
+                android:layout_marginLeft="15dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/attendingEvent"
+            android:text="Attending: "
+            android:padding="10dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Session"
+                android:layout_alignParentRight="true"
+            />
+        </RelativeLayout>
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listViewFriends">
+        </ListView>
+
+    </LinearLayout>
+
+</RelativeLayout>
