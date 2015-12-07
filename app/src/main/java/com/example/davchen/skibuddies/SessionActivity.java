@@ -6,11 +6,13 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.davchen.skibuddies.Model.Session;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
@@ -24,11 +26,19 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 //import android.text.format.DateFormat;
 
@@ -50,6 +60,9 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
     private PolylineOptions track;  //draw the track line
     private Polyline poly;  //draw the track line
 
+    //for share location
+    private Session session;
+
 
     private static final String REQUESTING_LOCATION_UPDATES_KEY = "request_location_update_key";
     private static final String LOCATION_KEY = "location_key";
@@ -68,6 +81,8 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
+
+        session = new Session();
 
         //get map
         try {
@@ -145,6 +160,9 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
         RECORD_FLAG = false;
         poly = googleMap.addPolyline(track);
         distanceTV.setText("Distance: "+Math.round(distance)+ " m");
+
+
+        //store the distance to parse
 
 
     }
@@ -295,7 +313,49 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
 
         }
 
+        //update my latest location
+        updateCurrentLocation(location);
+
+        //get friend's location
+        getFriendLocation();
+
         mLastLocation = mCurrentLocation;
+
+    }
+
+    public void updateCurrentLocation(Location location)
+    {
+        double latitude = location.getLatitude();
+        double longtitude = location.getLongitude();
+        ParseGeoPoint parselocation = new ParseGeoPoint(latitude, longtitude);
+
+        session.setUserId(ParseUser.getCurrentUser());
+        session.setLocation(parselocation);
+        session.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e==null){
+                    Log.d("Message", "Saving in background");
+                }
+            }
+        });
+        System.out.println("update Current Location" + latitude + " " + longtitude);
+
+    }
+
+    public void getFriendLocation(){
+        List<Location> result = new ArrayList<Location>();
+
+
+        for(int i = 0; i<result.size(); i++)
+        {
+            LatLng friendLatLng = new LatLng(37.7750, 122.4183);
+            Marker marker = googleMap.addMarker(new MarkerOptions()
+//                    .position(new LatLng(37.7750, 122.4183))
+                    .position(friendLatLng)
+                    .title("San Francisco")
+                    .snippet("Population: 776733"));
+        }
 
     }
 

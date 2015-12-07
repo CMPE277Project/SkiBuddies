@@ -29,7 +29,7 @@ public class Session extends ParseObject
         return getString("EventId");
     }
 
-    public void SetUserId(ParseUser parseUser) {
+    public void setUserId(ParseUser parseUser) {
         put("UserId", parseUser);
     }
 
