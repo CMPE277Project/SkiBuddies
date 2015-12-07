@@ -19,4 +19,6 @@
     <string name="title_activity_fragment_container">FragmentContainerActivity</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
     <string name="title_activity_event_information">EventInformation</string>
+    <string name="search_hint">Search Friends</string>
+    <string name="title_activity_search_results">SearchResultsActivity</string>
 </resources>

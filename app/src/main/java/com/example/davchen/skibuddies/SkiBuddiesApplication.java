@@ -3,6 +3,7 @@ package com.example.davchen.skibuddies;
 import android.app.Application;
 
 import com.example.davchen.skibuddies.Model.Event;
+import com.example.davchen.skibuddies.Model.FriendShip;
 import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
@@ -27,6 +28,7 @@ public class SkiBuddiesApplication extends Application {
         ParseFacebookUtils.initialize(this);
 
         ParseObject.registerSubclass(Event.class);
+        ParseObject.registerSubclass(FriendShip.class);
 
 //        ParseUser.enableAutomaticUser();
 //        ParseACL defaultACL = new ParseACL();

@@ -63,6 +63,19 @@
             android:name=".EventInformation"
             android:label="@string/title_activity_event_information" >
         </activity>
+        <activity
+            android:name=".SearchResultsActivity"
+            android:label="@string/title_activity_search_results">
+            <!-- to identify this activity as "searchable" -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
 	
 	<meta-data
             android:name="com.google.android.geo.API_KEY"

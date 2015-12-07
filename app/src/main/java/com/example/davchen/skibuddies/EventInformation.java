@@ -1,41 +1,48 @@
 package com.example.davchen.skibuddies;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.facebook.login.widget.ProfilePictureView;
 import com.parse.ParseObject;
 
-public class EventInformation extends AppCompatActivity {
+public class EventInformation extends AppCompatActivity implements View.OnClickListener {
+
+    private static final String TAG = EventInformation.class.getSimpleName();
 
     private ParseObject object;
     private String name;
     private ProfilePictureView profilePictureView;
     private TextView textView1, textView2, textView3;
-    private Intent intent;
+    private Button button;
+    private ListView listView;
 
-
-    private Button sessionButton;   //button for start session
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_information);
 
-        sessionButton = (Button) findViewById(R.id.startSessionId);
-        sessionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(EventInformation.this, SessionActivity.class);
-                startActivity(intent);
-            }
-        });
+        button = (Button)findViewById(R.id.startSessionId);
+
+        listView = (ListView)findViewById(R.id.listViewFriends);
+
+        textView1 = (TextView)findViewById(R.id.IdinfoTextName);
+        textView2 = (TextView)findViewById(R.id.hello);
+        textView3 = (TextView)findViewById(R.id.descriptionText);
+        profilePictureView = (ProfilePictureView)findViewById(R.id.Idinfo);
+
+        updateProfile();
+
+        button.setOnClickListener(this);
+
 
     }
 
@@ -59,5 +66,16 @@ public class EventInformation extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void updateProfile() {
+        profilePictureView.setProfileId("");
+        textView1.setText("");
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(this, SessionActivity.class);
+        startActivity(intent);
     }
 }

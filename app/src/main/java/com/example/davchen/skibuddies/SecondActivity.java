@@ -1,11 +1,15 @@
 package com.example.davchen.skibuddies;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.android4devs.slidingtab.SlidingTabLayout;
@@ -65,7 +69,14 @@ public class SecondActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_second, menu);
+        MenuInflater menuInflater = getMenuInflater();
+       // getMenuInflater().inflate(R.menu.menu_second, menu);
+        menuInflater.inflate(R.menu.menu_second, menu);
+        SearchManager searchManager =  (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.searchBar1).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
 
@@ -85,6 +96,10 @@ public class SecondActivity extends AppCompatActivity {
             Intent intent = new Intent(this, NewEventActivity.class);
             startActivity(intent);
             return true;
+        }
+
+        if(id == R.id.searchBar1) {
+
         }
 
         return super.onOptionsItemSelected(item);
