@@ -3,10 +3,18 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout"
+        android:background="#ffffff"
+        android:padding="6dp">
+
     <com.facebook.login.widget.ProfilePictureView
         android:id="@+id/facebookProfileId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="10dp"
         android:layout_gravity="top"
         />
     <TextView
@@ -14,7 +22,33 @@
         android:layout_height="wrap_content"
         android:hint="Name"
         android:id="@+id/profilePicName"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"/>
+        android:layout_toRightOf="@id/facebookProfileId"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="15dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/viewRecordButton"
+            android:text="View Record"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="38dp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/friendsProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingTop="8dp"
+        android:text="Friends" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ListViewOfFriends">
+    </ListView>
+
 
 </LinearLayout>

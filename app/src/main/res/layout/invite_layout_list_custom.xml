@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+  <include
+      android:id="@+id/inviteListToolBar"
+      layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:layout_below="@id/inviteListToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/invitationCreatedBy"
+                android:layout_margin="3dp"
+                android:text="CreatedBy: "/>
+            <com.facebook.login.widget.ProfilePictureView
+                android:layout_below="@id/invitationCreatedBy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/profilePicNameId">
+            </com.facebook.login.widget.ProfilePictureView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:id="@+id/nameofowner"
+                android:layout_below="@id/profilePicNameId"
+                android:layout_margin="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title: "
+                android:id="@+id/TitleInfoID"
+                android:layout_toRightOf="@+id/profilePicNameId"
+                android:layout_margin="15dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Title"
+                android:layout_toRightOf="@id/TitleInfoID"
+                android:layout_alignBaseline="@id/TitleInfoID"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/descriptionDetails"
+                android:text="Description"
+                android:layout_toRightOf="@id/profilePicNameId"
+                android:layout_below="@id/TitleInfoID"
+                android:layout_marginLeft="13dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/descriptionID"
+                android:hint="description"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/descriptionDetails"
+                android:layout_alignBaseline="@id/descriptionDetails"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/startdateinfo"
+                android:layout_below="@id/descriptionDetails"
+                android:layout_toRightOf="@id/profilePicNameId"
+                android:text="StartDate: "
+                android:layout_marginTop="27dp"
+                android:layout_marginLeft="14dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/startdateInfo1"
+                android:hint="StartDate"
+                android:layout_marginLeft="3dp"
+                android:layout_toRightOf="@id/startdateinfo"
+                android:layout_below="@id/descriptionID"
+                android:layout_alignBaseline="@id/startdateinfo"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/endateInfo"
+                android:text="EndDate: "
+                android:layout_toRightOf="@id/profilePicNameId"
+                android:layout_below="@id/startdateinfo"
+                android:layout_alignBaseline="@id/nameofowner"
+                android:layout_marginLeft="14dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/enddateInvent"
+                android:text="enddate"
+                android:layout_alignBaseline="@id/endateInfo"
+                android:layout_toRightOf="@id/endateInfo"
+                android:layout_marginLeft="10dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profilePicNameId"
+                android:layout_marginTop="60dp"
+                android:text="Accept"
+                android:id="@+id/acceptOffer"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Decline"
+                android:id="@+id/declineOffer"
+                android:layout_alignBaseline="@id/acceptOffer"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

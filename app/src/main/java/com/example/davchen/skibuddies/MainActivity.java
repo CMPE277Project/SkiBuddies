@@ -34,6 +34,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button createEventBtn;
 
     private Button getEventBtn;
+        //fortest
+    private Button testButton;
+    private Intent intent;
+
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -65,6 +69,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             button = (Button) findViewById(R.id.button);
             button.setOnClickListener(this);
+
+	    //fortest
+       	    testButton = (Button)findViewById(R.id.testbutton);
+            testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(MainActivity.this, EventInformation.class);
+                startActivity(intent);
+            }
+        });
+
 
         }
 
