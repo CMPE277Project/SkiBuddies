@@ -1,0 +1,195 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.davchen.skibuddies.CreateEvent">
+
+     <include
+         android:id="@+id/toolBarCreate"
+         layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:paddingTop="15dp"
+        android:paddingLeft="15dp"
+        android:paddingBottom="15dp"
+        android:padding="15dp"
+        android:layout_below="@id/toolBarCreate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/createEventDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="9dp"
+            android:text="Title"
+            />
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_below="@id/createEventDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxWidth="42dp"
+            android:maxHeight="42dp"
+            android:scaleType="fitCenter"
+            android:layout_marginLeft="3dp"
+            android:src="@drawable/ic_invite"
+            />
+
+        <EditText
+            android:layout_toRightOf="@id/image_view"
+            android:id="@+id/CreateEventText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:hint="Please enter title"
+            android:layout_alignTop="@id/image_view"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:id="@+id/descriptionEvent"
+            android:layout_below="@id/image_view"
+            android:layout_marginTop="20dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/descriptionEvent"
+            android:maxHeight="42dp"
+            android:maxWidth="42dp"
+            android:layout_marginLeft="3dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:id="@+id/secondImage"
+            android:src="@drawable/ic_des"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/descriptionsdetails"
+            android:layout_below="@id/CreateEventText"
+            android:layout_alignBottom="@id/secondImage"
+            android:layout_toRightOf="@id/secondImage"
+            android:layout_marginLeft="20dp"
+            android:layout_alignTop="@id/secondImage"
+            android:hint="Please enter Description"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start Date"
+            android:layout_below="@id/secondImage"
+            android:layout_marginTop="15dp"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/secondImage"
+            android:id="@+id/startDate"
+            android:layout_marginTop="30dp"
+            android:text="StartDate"
+            android:onClick="fhhf"
+            android:src="@drawable/ic_time"
+            android:maxWidth="42dp"
+            android:maxHeight="42dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/startDate"
+            android:layout_below="@id/descriptionsdetails"
+            android:layout_toRightOf="@id/startDate"
+            android:layout_marginLeft="35dp"
+            android:hint="Start Date"
+            android:paddingTop="15dp"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/endDate"
+            android:layout_below="@id/startDate"
+            android:layout_marginTop="20dp"
+            android:maxHeight="42dp"
+            android:maxWidth="42dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_time"
+            android:scaleType="fitCenter"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/enddatetext"
+            android:layout_marginLeft="35dp"
+            android:hint="End date"
+            android:layout_toRightOf="@id/endDate"
+            android:layout_alignBottom="@+id/endDate"
+            android:layout_alignParentEnd="true" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startTime"
+            android:layout_below="@id/endDate"
+            android:maxHeight="40dp"
+            android:maxWidth="40dp"
+            android:layout_marginTop="20dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_time"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/starttimeevent"
+            android:hint="Start Time"
+            android:layout_toRightOf="@id/startTime"
+            android:layout_marginLeft="30dp"
+            android:layout_alignBottom="@+id/startTime"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/startTime"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/endingtime"
+            android:adjustViewBounds="true"
+            android:maxWidth="40dp"
+            android:maxHeight="40dp"
+            android:scaleType="fitCenter"
+            android:layout_below="@id/startTime"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_time"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/endtimetext"
+            android:hint="End time"
+            android:layout_toRightOf="@id/endingtime"
+            android:layout_marginLeft="30dp"
+            android:layout_alignBottom="@+id/endingtime"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/endingtime"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/postbutton"
+            android:text="Submit"
+            android:layout_centerHorizontal="true"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

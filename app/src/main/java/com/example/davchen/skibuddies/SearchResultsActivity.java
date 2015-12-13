@@ -19,14 +19,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.davchen.skibuddies.Model.Event;
 import com.example.davchen.skibuddies.Model.FriendShip;
 import com.facebook.login.widget.ProfilePictureView;
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -40,9 +37,6 @@ public class SearchResultsActivity extends AppCompatActivity implements AdapterV
     private List<ParseUser> parseUserList;
     private ListView listView;
     private FriendShip friendShip;
-//    private ProfilePictureView profilePictureView;
-//    private TextView textView;
-//    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,9 +103,9 @@ public class SearchResultsActivity extends AppCompatActivity implements AdapterV
             @Override
             public void done(List<ParseUser> objects, ParseException e) {
                 if(e==null) {
-                     parseUserList.clear();
+                    parseUserList.clear();
                     for(ParseUser users: objects) {
-                       // Log.d(TAG, users.getUsername());
+                        // Log.d(TAG, users.getUsername());
                         parseUserList.add(users);
                     }
                     //Log.d(TAG, parseUserList.get(0));
@@ -129,7 +123,7 @@ public class SearchResultsActivity extends AppCompatActivity implements AdapterV
 
             @Override
             public View getView(final int position, View convertView, ViewGroup parent) {
-               // return super.getView(position, convertView, parent);
+                // return super.getView(position, convertView, parent);
                 if(convertView == null) {
                     convertView = getLayoutInflater().inflate(R.layout.search_user_profile, parent, false);
                 }
@@ -166,9 +160,9 @@ public class SearchResultsActivity extends AppCompatActivity implements AdapterV
         friendShip.setAccepterId(otherUser);
         friendShip.setStatus("pending");
         friendShip.setDate(new Date());
-       // ParseObject parseObject = new ParseObject("FriendShip");
-       // parseObject.put("From", ParseUser.getCurrentUser());
-       // parseObject.put("To", otherUser);
+        // ParseObject parseObject = new ParseObject("FriendShip");
+        // parseObject.put("From", ParseUser.getCurrentUser());
+        // parseObject.put("To", otherUser);
 //        parseObject.put("Status", "pending");
 //        parseObject.put("Date", new Date());
         friendShip.saveInBackground(new SaveCallback() {
