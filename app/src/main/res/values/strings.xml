@@ -23,5 +23,8 @@
     <string name="title_activity_search_results">SearchResultsActivity</string>
     <string name="title_activity_create_event">CreateEvent</string>
     <string name="title_activity_user_bio_details">UserBioDetails</string>
+<<<<<<< HEAD
     <string name="skiBuddy">SKi Buddy</string>
+=======
+>>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
 </resources>

@@ -22,7 +22,10 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+<<<<<<< HEAD
 import java.text.SimpleDateFormat;
+=======
+>>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
@@ -131,8 +134,12 @@ public class EventInformation extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(this, SessionActivity.class);
+<<<<<<< HEAD
         intent.putExtra("EventId", title);
         intent.putExtra("Id", userId);
+=======
+        intent.putExtra("", "");
+>>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
 
         //save eventId..
         //start session...
@@ -171,9 +178,12 @@ public class EventInformation extends AppCompatActivity implements View.OnClickL
                 Intent intent = new Intent(EventInformation.this, UserBioDetails.class);
                 intent.putExtra("UserName", invitationList.get(position).getUserId().getUsername());
                 intent.putExtra("Id", invitationList.get(position).getUserId().get("UserId").toString());
+<<<<<<< HEAD
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
                 intent.putExtra("Date", dateFormat.format(invitationList.get(position).getUserId().getCreatedAt()));
+=======
+>>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
                 startActivity(intent);
             }
         });

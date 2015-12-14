@@ -41,7 +41,11 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:id="@+id/datebio"
+<<<<<<< HEAD
         />
+=======
+        android:hint="123"/>
+>>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
 
     <TextView
         android:layout_width="match_parent"

@@ -30,7 +30,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+<<<<<<< HEAD
 import com.google.android.gms.vision.barcode.Barcode;
+=======
+>>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
@@ -66,7 +69,10 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
     //for share location
     private Session session;
     private List<Session> sessionList;
+<<<<<<< HEAD
     private List<Session> resultList;
+=======
+>>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
 
     private static final String REQUESTING_LOCATION_UPDATES_KEY = "request_location_update_key";
     private static final String LOCATION_KEY = "location_key";
@@ -90,10 +96,14 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
 
+<<<<<<< HEAD
         Intent intent = getIntent();
         eventId = intent.getStringExtra("EventId");
         sessionList = new ArrayList<Session>();
         resultList = new ArrayList<Session>();
+=======
+        sessionList = new ArrayList<Session>();
+>>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
         session = new Session();
 
 
@@ -172,6 +182,7 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
 
         //store to parse
         session.setDistance(String.valueOf(distance));
+<<<<<<< HEAD
         session.setEventId(ParseObject.createWithoutData("Event", eventId));
         session.saveInBackground(new SaveCallback() {
             @Override
@@ -184,6 +195,8 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
                 }
             }
         });
+=======
+>>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
 
         //store the distance to parse
 
@@ -362,6 +375,7 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
     public void getFriendLocation(){
         List<Location> result = new ArrayList<Location>();
 
+<<<<<<< HEAD
 //        ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Session");
 //        parseQuery.whereNotEqualTo("UserId", ParseUser.getCurrentUser());
 
@@ -482,6 +496,51 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
         for(Session session: sessionList) {
             Log.d("Message", session.getUserId().getUsername());
             //Log.d("Message", String.valueOf(session.getLocation().getLatitude()));
+=======
+        ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Session");
+        parseQuery.whereNotEqualTo("UserId", ParseUser.getCurrentUser());
+        parseQuery.include("Location");
+        parseQuery.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+                    sessionList.clear();
+                    for (ParseObject newobjects : objects) {
+                        sessionList.add((Session) newobjects);
+                    }
+                    //updateLocations();
+
+                } else {
+                    Log.d(TAG, "Error could not retrieve session objects");
+                }
+            }
+        });
+
+        if(sessionList.size()>0)
+        {
+            Log.d(TAG, "I can see the friends");
+        }
+        else
+        {
+            Log.d(TAG, "I cannot see the friends");
+        }
+
+
+        for(int i = 0; i<sessionList.size(); i++)
+        {
+            ParseGeoPoint friendParseLocation =sessionList.get(i).getLocation();
+            double latitude = friendParseLocation.getLatitude();
+            double longitude = friendParseLocation.getLongitude();
+            String friendName = sessionList.get(i).getUserId().getUsername();
+
+//            LatLng friendLatLng = new LatLng(37.7750, 122.4183);
+            LatLng friendLatLng = new LatLng(latitude, longitude);
+            Marker marker = googleMap.addMarker(new MarkerOptions()
+//                    .position(new LatLng(37.7750, 122.4183))
+                    .position(friendLatLng)
+//                    .title("San Francisco")
+                    .snippet(friendName));
+>>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
         }
 
     }
