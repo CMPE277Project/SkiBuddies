@@ -14,13 +14,13 @@
         android:id="@+id/listView_event">
     </ListView>
 
-    <Button
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_margin="10dp"
-        android:id="@+id/button_Create"
-        android:layout_gravity="right|bottom"
-        android:scaleType="fitXY"
-        android:background="@drawable/ic_plus" />
+    <!--<Button-->
+        <!--android:layout_width="60dp"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:id="@+id/button_Create"-->
+        <!--android:layout_gravity="right|bottom"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:background="@drawable/ic_plus" />-->
 
 </FrameLayout>

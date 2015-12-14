@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.davchen.skibuddies.Model.FriendShip;
+import com.example.davchen.skibuddies.Model.Session;
 import com.example.davchen.skibuddies.R;
 import com.facebook.login.widget.ProfilePictureView;
 import com.parse.FindCallback;
@@ -36,13 +37,13 @@ import java.util.List;
 public class ProfileTab extends Fragment {
 
     private ProfilePictureView profilePictureView;
-    private TextView textView;
-    private String name;
-    private String userId;
-    private List<FriendShip> parseUserList;
-    private ListView friendsList;
+    private TextView textView, textView2;
+    private String name, userId, date;
+    private List<Session> parseUserList;
+    private ListView recordsList;
     private static final String TAG = ProfileTab.class.getSimpleName();
-    private FriendShip friendShip;
+    private Session session;
+    private Context context;
 
 
     @Override
@@ -50,8 +51,10 @@ public class ProfileTab extends Fragment {
         super.onCreate(savedInstanceState);
         name = getActivity().getIntent().getStringExtra("Name");
         userId = getActivity().getIntent().getStringExtra("Id");
-        parseUserList = new ArrayList<FriendShip>();
-        friendShip = new FriendShip();
+        date = getActivity().getIntent().getStringExtra("Date");
+
+        parseUserList = new ArrayList<Session>();
+        session = new Session();
     }
 
     @Override
@@ -60,84 +63,70 @@ public class ProfileTab extends Fragment {
         View rootView = inflater.inflate(R.layout.profile_tab_fragment, container, false);
         profilePictureView = (ProfilePictureView)rootView.findViewById(R.id.facebookProfileId);
         textView = (TextView)rootView.findViewById(R.id.profilePicName);
-        friendsList = (ListView)rootView.findViewById(R.id.ListViewOfFriends);
+        textView2 =(TextView)rootView.findViewById(R.id.dateMember);
+        recordsList = (ListView)rootView.findViewById(R.id.ListViewOfFriends);
+
         displayName();
-        queryFriendShipRequest();
+        queryUserRecord();
         return rootView;
     }
 
-    private void queryFriendShipRequest() {
 
-       final ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Friendship");
-        parseQuery.whereEqualTo("accepterId", ParseUser.getCurrentUser());
-        parseQuery.whereEqualTo("Status", "Accepted");
-        parseQuery.include("requesterId");
+    private void queryUserRecord() {
+        ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Session");
+        parseQuery.whereEqualTo("UserId", ParseUser.getCurrentUser());
+        parseQuery.include("Distance");
+        //parseQuery.include("EventId");
+
         parseQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null) {
-
+                    //success
+                    Toast.makeText(getActivity(), "Retrieving records", Toast.LENGTH_LONG).show();
                     parseUserList.clear();
                     for (ParseObject parseObject : objects) {
-                        parseUserList.add((FriendShip) parseObject);
-
+                        parseUserList.add((Session) parseObject);
                     }
-                    updateFriendsList();
-
+                    fetchRecordList();
                 } else {
-                    Log.d(TAG, "Unable to retreive Invites: " + e.getMessage());
+                    //error
+                    Log.e(TAG, "Error: Unable to retrieve records");
                 }
-
             }
         });
     }
 
-    private void updateFriendsList() {
+    //inflates the List View.....
+    private void fetchRecordList() {
 
-         ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.friend_request_list, parseUserList) {
+         ArrayAdapter<Session> adapter = new ArrayAdapter<Session>(getActivity(), R.layout.users_profile_record, parseUserList) {
 
              @Override
              public View getView(final int position, View convertView, ViewGroup parent) {
                 // return super.getView(position, convertView, parent);
                  if(convertView==null) {
-                     convertView = getActivity().getLayoutInflater().inflate(R.layout.friend_request_list, parent, false);
+                     convertView = getActivity().getLayoutInflater().inflate(R.layout.users_profile_record, parent, false);
                  }
 
-                 ProfilePictureView profilePictureView1 = (ProfilePictureView)convertView.findViewById(R.id.userProfileName11);
-                 TextView textView = (TextView)convertView.findViewById(R.id.IDNameOfPerson);
-                 final Button button = (Button)convertView.findViewById(R.id.accept);
-                 final Button button1 = (Button)convertView.findViewById(R.id.reject);
+                 TextView textView = (TextView)convertView.findViewById(R.id.username);
+                 TextView textView1 = (TextView)convertView.findViewById(R.id.usersdistance);
 
-                profilePictureView1.setProfileId(parseUserList.get(position).getFrom().getString("UserId"));
-                // textView.setText(parseUserList.get(position).getFrom().getUsername());
-                 //textView.setText(p);
-
-                 button.setOnClickListener(new View.OnClickListener() {
-                     @Override
-                     public void onClick(View v) {
-                         acceptFriendRequest(position);
-//                         button.setVisibility(View.GONE);
-//                         button1.setText("Delete");
-                     }
-                 });
-
-                 button1.setOnClickListener(new View.OnClickListener() {
-                     @Override
-                     public void onClick(View v) {
-                         //rejectFriendRequest(position);
-                     }
-                 });
-
+                 session = parseUserList.get(position);
+                 //Important Note need to add Event after session is done
+                 //textView.setText("Event title: "+session.);
+                 textView1.setText("Distance Covered: "+session.getDistance());
                  return convertView;
              }
 
          };
-        friendsList.setAdapter(adapter);
+        recordsList.setAdapter(adapter);
     }
 
     private void displayName() {
         profilePictureView.setProfileId(userId);
         textView.setText(name);
+        textView2.setText("Member since: "+date);
     }
 
     @Override
@@ -148,74 +137,21 @@ public class ProfileTab extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        this.context = context;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        queryFriendShipRequest();
+        queryUserRecord();
     }
 
-    private void acceptFriendRequest(int position) {
-
-        final FriendShip parseUser = parseUserList.get(position);
-
-        ParseUser otherUser = ParseUser.getCurrentUser();
-
-//        ParseObject parseObject = new ParseObject("FriendShip");
-//        parseObject.put("From", ParseUser.getCurrentUser());
-//        parseObject.put("To", otherUser);
-//        parseObject.put("Status", "accepted");
-//        parseObject.put("Date", new Date());
-        parseUser.setAccepterId(otherUser);
-        parseUser.setFrom(parseUser.getFrom());
-        parseUser.setStatus("Accepted");
-        parseUser.setDate(new Date());
-
-        parseUser.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                Toast.makeText(getActivity().getApplicationContext(), "Accepted " + parseUser.getFrom() + "Friend request", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        friendShip.setAccepterId(parseUser.getFrom());
-        friendShip.setFrom(otherUser);
-        friendShip.setStatus("Accepted");
-        friendShip.setDate(new Date());
-        friendShip.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if(e==null) {
-                    Log.d(TAG, "Successfully Saved");
-                }
-                else{
-                    //e
-                }
-            }
-        });
-
-
+    
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        queryUserRecord();
     }
-
-    /*private void rejectFriendRequest(int position) {
-
-        final FriendShip parseUser = parseUserList.get(position);
-
-        ParseObject parseObject = new ParseObject("FriendShip");
-        parseObject.put("From", ParseUser.getCurrentUser());
-        parseObject.put("To", parseUser);
-        parseObject.put("Status", "rejected");
-        parseObject.put("Date", new Date());
-
-        parseObject.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                Toast.makeText(getActivity().getApplicationContext(), "Rejected " + parseUser.getFrom() + "Friend request", Toast.LENGTH_LONG).show();
-            }
-        });
-
-    }*/
 
 
 }

@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.davchen.skibuddies.UserBioDetails">
+
+    <include android:id="@+id/recordtoolbar"
+        layout="@layout/toolbar" />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
+
+    <com.facebook.login.widget.ProfilePictureView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bioprofilePic"
+        >
+    </com.facebook.login.widget.ProfilePictureView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/bioprofilePic"
+        android:id="@+id/profilenn"
+        android:hint="Name"
+        android:paddingBottom="15dp"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profilenn"
+        android:layout_alignBottom="@id/bioprofilePic"
+        android:layout_toRightOf="@id/bioprofilePic"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/datebio"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Records"
+        android:paddingTop="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:textAlignment="center"
+        android:id="@+id/records"
+        android:layout_below="@id/bioprofilePic"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/records"
+        android:layout_marginTop="8dp"
+        android:id="@+id/listrecords">
+
+    </ListView>
+
+    </RelativeLayout>
+
+</LinearLayout>
