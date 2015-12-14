@@ -12,18 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-<<<<<<< HEAD
-import android.widget.ImageButton;
-=======
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
+
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-<<<<<<< HEAD
+
 import com.example.davchen.skibuddies.Model.Event;
-=======
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
+
 import com.example.davchen.skibuddies.Model.Invitation;
 import com.example.davchen.skibuddies.R;
 import com.parse.FindCallback;
@@ -70,11 +66,9 @@ public class InviteTab extends Fragment {
     private void queryEventListFromParse() {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Invitation");
-<<<<<<< HEAD
+
         query.whereEqualTo("Participants", ParseUser.getCurrentUser());
-=======
-        query.whereNotEqualTo("Participants", ParseUser.getCurrentUser());
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
+
         query.whereEqualTo("Status", "0");
         query.include("EventId");
         //query.orderByDescending("createAt");

@@ -43,10 +43,7 @@ public class EventTab extends Fragment implements AdapterView.OnItemClickListene
     private String name;
     private String userId;
     private Context context;
-<<<<<<< HEAD
     private Event event;
-=======
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
 
     public EventTab() {
 
@@ -58,10 +55,7 @@ public class EventTab extends Fragment implements AdapterView.OnItemClickListene
         eventList = new ArrayList<Event>();
         invitationList = new ArrayList<Invitation>();
         invitation = new Invitation();
-<<<<<<< HEAD
         event = new Event();
-=======
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
 
     }
 
@@ -92,25 +86,16 @@ public class EventTab extends Fragment implements AdapterView.OnItemClickListene
 //        query.whereEqualTo("Status", "1");
 //       // query.include("EventTitle");
 
-<<<<<<< HEAD
         ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Event");
 
         //parseQuery.whereEqualTo("Participants", ParseUser.getCurrentUser());
         parseQuery.whereEqualTo("Status", "1");
-       // parseQuery.include("EventId");
+        // parseQuery.include("EventId");
         parseQuery.include("author");
-=======
-        ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Invitation");
-
-        parseQuery.whereEqualTo("Participants", ParseUser.getCurrentUser());
-        parseQuery.whereEqualTo("Status", "1");
-        parseQuery.include("EventId");
-        parseQuery.include("Participants");
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
         Log.d(TAG, ParseUser.getCurrentUser().toString());
 
 
-      //  query.orderByAscending("createAt");
+        //  query.orderByAscending("createAt");
 
         // Run the query
         parseQuery.findInBackground(new FindCallback<ParseObject>() {
@@ -119,19 +104,11 @@ public class EventTab extends Fragment implements AdapterView.OnItemClickListene
                 if (e == null) {
                     // If there are results, update the list of event and notify the adapter
                     Log.d(TAG, "Im in background");
-                  //  eventList.clear();
-<<<<<<< HEAD
+                    //  eventList.clear();
                     eventList.clear();
-=======
-                    invitationList.clear();
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
                     for (ParseObject event : objectList) {
-                        invitationList.add((Invitation)event);
+                        eventList.add((Event)event);
                     }
-<<<<<<< HEAD
-=======
-                    Log.d(TAG, String.valueOf(invitationList.size()));
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
 
                     updateEventsList();
 
@@ -143,7 +120,6 @@ public class EventTab extends Fragment implements AdapterView.OnItemClickListene
     }
 
     private void queryInvitation() {
-<<<<<<< HEAD
 
         ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Invitation");
         parseQuery.whereEqualTo("username", ParseUser.getCurrentUser());
@@ -154,35 +130,10 @@ public class EventTab extends Fragment implements AdapterView.OnItemClickListene
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
 
-                if(e==null) {
+                if (e == null) {
                     invitationList.clear();
-                    for(ParseObject parseObject: objects) {
-                        invitationList.add((Invitation)parseObject);
-                    }
-                }
-                updateInvitationList();
-            }
-        });
-    }
-
-=======
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
-
-        ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Invitation");
-        parseQuery.whereEqualTo("username", ParseUser.getCurrentUser());
-        parseQuery.whereEqualTo("status", "1");
-
-
-<<<<<<< HEAD
-=======
-        parseQuery.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-
-                if(e==null) {
-                    invitationList.clear();
-                    for(ParseObject parseObject: objects) {
-                        invitationList.add((Invitation)parseObject);
+                    for (ParseObject parseObject : objects) {
+                        invitationList.add((Invitation) parseObject);
                     }
                 }
                 updateInvitationList();
@@ -193,10 +144,9 @@ public class EventTab extends Fragment implements AdapterView.OnItemClickListene
 
     private void updateEventsList() {
 
-        ArrayAdapter<Invitation> adapter = new ArrayAdapter<Invitation>(getActivity(),
-                R.layout.listview_event_item, invitationList){
+        ArrayAdapter<Event> adapter = new ArrayAdapter<Event>(getActivity(),
+                R.layout.listview_event_item, eventList){
 
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
             @Override
             public View getView(int position, View convertView, ViewGroup parent){
 
@@ -209,19 +159,13 @@ public class EventTab extends Fragment implements AdapterView.OnItemClickListene
                 TextView tvStart = (TextView)convertView.findViewById(R.id.textView_start);
                 TextView tvEnd = (TextView)convertView.findViewById(R.id.textView_end);
 
-               //Event event = eventList.get(position);
+                //Event event = eventList.get(position);
 
-<<<<<<< HEAD
                 event = eventList.get(position);
 
                 Title.setText(event.getString("EventTitle"));
-=======
-                invitation = invitationList.get(position);
-
-                Title.setText(invitation.getEventId().getString("EventTitle"));
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
-               // tvStart.setText(event.getStartTime());
-               // tvEnd.setText(event.getEndTime());
+                // tvStart.setText(event.getStartTime());
+                // tvEnd.setText(event.getEndTime());
 
                 return convertView;
             }
@@ -270,7 +214,7 @@ public class EventTab extends Fragment implements AdapterView.OnItemClickListene
     public void onResume() {
         super.onResume();
         queryEventListFromParse();
-       // queryInvitation();
+        // queryInvitation();
     }
 
     @Override
@@ -280,7 +224,7 @@ public class EventTab extends Fragment implements AdapterView.OnItemClickListene
             // If a new event has been added, update the list of events
             Log.d(TAG, "Hello");
             queryEventListFromParse();
-           // queryInvitation();
+            // queryInvitation();
         }
     }
 
@@ -288,19 +232,12 @@ public class EventTab extends Fragment implements AdapterView.OnItemClickListene
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         Intent intent = new Intent(getContext(), EventInformation.class);
-<<<<<<< HEAD
         intent.putExtra("Event_Title", eventList.get(position).getEventTitle());
-        intent.putExtra("Description", eventList.get(position).getEventTitle());
+        intent.putExtra("Description", eventList.get(position).getDescription());
         intent.putExtra("Username", eventList.get(position).getAuthor().getUsername());
         intent.putExtra("Id", eventList.get(position).getAuthor().getString("UserId"));
-=======
-        intent.putExtra("Event_Title", invitationList.get(position).getEventId().getString("EventTitle"));
-        intent.putExtra("Description", invitationList.get(position).getEventId().getString("Description"));
-        intent.putExtra("Username", invitationList.get(position).getUserId().getUsername());
-        intent.putExtra("Id", invitationList.get(position).getUserId().getString("UserId"));
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
         //intent.putExtra("UserId", in)
-                startActivity(intent);
+        startActivity(intent);
     }
 
     @Override

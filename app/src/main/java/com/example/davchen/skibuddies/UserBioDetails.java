@@ -25,11 +25,10 @@ import java.util.List;
 
 public class UserBioDetails extends AppCompatActivity {
 
-<<<<<<< HEAD
+
+
+
     private String name, userId, date;
-=======
-    private String name, userId;
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
     private ProfilePictureView profilePictureView;
     private TextView textView, textView1;
     private List<Session> sessionList;
@@ -90,11 +89,11 @@ public class UserBioDetails extends AppCompatActivity {
                 TextView view2 = (TextView)convertView.findViewById(R.id.othersRecord);
 
                 session = sessionList.get(position);
-<<<<<<< HEAD
+
                // view.setText(session.getEventId().getObjectId());
-=======
+
                 view.setText(session.getEventId().getString("EventTitle"));
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
+
                 view2.setText(session.getString("Distance"));
 
                 return convertView;
@@ -130,17 +129,17 @@ public class UserBioDetails extends AppCompatActivity {
         Intent intent = getIntent();
         name = intent.getStringExtra("UserName");
         userId = intent.getStringExtra("Id");
-<<<<<<< HEAD
+
         date = intent.getStringExtra("Date");
 
         profilePictureView.setProfileId(userId);
         textView.setText(name);
-        textView1.setText("Member since: "+date);
-=======
+        textView1.setText("Member since: "+ date);
+
 
         profilePictureView.setProfileId(userId);
         textView.setText(name);
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
+
     }
 
 

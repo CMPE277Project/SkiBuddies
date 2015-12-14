@@ -76,22 +76,16 @@ public class ProfileTab extends Fragment {
         ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Session");
         parseQuery.whereEqualTo("UserId", ParseUser.getCurrentUser());
         parseQuery.include("Distance");
-<<<<<<< HEAD
         //parseQuery.include("EventId");
-=======
         parseQuery.include("EventId");
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
 
         parseQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null) {
                     //success
-<<<<<<< HEAD
                     Toast.makeText(getActivity(), "Retrieving records", Toast.LENGTH_LONG).show();
-=======
                     Toast.makeText(getContext(), "Retrieving records", Toast.LENGTH_LONG).show();
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
                     parseUserList.clear();
                     for (ParseObject parseObject : objects) {
                         parseUserList.add((Session) parseObject);
@@ -108,11 +102,7 @@ public class ProfileTab extends Fragment {
     //inflates the List View.....
     private void fetchRecordList() {
 
-<<<<<<< HEAD
          ArrayAdapter<Session> adapter = new ArrayAdapter<Session>(getActivity(), R.layout.users_profile_record, parseUserList) {
-=======
-         ArrayAdapter adapter = new ArrayAdapter(context, R.layout.users_profile_record, parseUserList) {
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
 
              @Override
              public View getView(final int position, View convertView, ViewGroup parent) {
@@ -126,13 +116,13 @@ public class ProfileTab extends Fragment {
 
                  session = parseUserList.get(position);
                  //Important Note need to add Event after session is done
-<<<<<<< HEAD
+
                  //textView.setText("Event title: "+session.);
                  textView1.setText("Distance Covered: "+session.getDistance());
-=======
+
                 // textView.setText("Event title: "+session.getEventId().getString("EventTitle"));
                  textView1.setText("Distance Covered: "+session.getString("Distance"));
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
+
                  return convertView;
              }
 
@@ -163,12 +153,8 @@ public class ProfileTab extends Fragment {
         queryUserRecord();
     }
 
-<<<<<<< HEAD
-    
-=======
 
 
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

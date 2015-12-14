@@ -5,7 +5,6 @@
     <include android:id="@+id/toolbarmain"
         layout="@layout/toolbar" />
 
-<<<<<<< HEAD
     <TextView
         android:orientation="vertical"
         android:layout_width="wrap_content"
@@ -29,8 +28,6 @@
         android:layout_alignParentStart="true">
 
     </RelativeLayout>
-=======
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
 
     <Button
         android:layout_width="wrap_content"
@@ -39,11 +36,8 @@
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-<<<<<<< HEAD
         android:layout_marginBottom="100dp" />
-=======
-        android:layout_marginBottom="128dp" />
->>>>>>> ae39b75f7f0e90447ca47ec9c24ecad5e924835e
+       />
 
 
 </RelativeLayout>
