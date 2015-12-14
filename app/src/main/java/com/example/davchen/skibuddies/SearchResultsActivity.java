@@ -146,9 +146,7 @@ public class SearchResultsActivity extends AppCompatActivity implements AdapterV
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
 
-//        ArrayAdapter<Event> adapter = new ArrayAdapter<Event>(getActivity(),
-//                R.layout.listview_event_item, eventList){
-//    }
+
     }
 
     private void addAFriend(int position) {
@@ -160,11 +158,7 @@ public class SearchResultsActivity extends AppCompatActivity implements AdapterV
         friendShip.setAccepterId(otherUser);
         friendShip.setStatus("pending");
         friendShip.setDate(new Date());
-        // ParseObject parseObject = new ParseObject("FriendShip");
-        // parseObject.put("From", ParseUser.getCurrentUser());
-        // parseObject.put("To", otherUser);
-//        parseObject.put("Status", "pending");
-//        parseObject.put("Date", new Date());
+
         friendShip.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

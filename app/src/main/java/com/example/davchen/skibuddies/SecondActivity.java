@@ -8,13 +8,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.android4devs.slidingtab.SlidingTabLayout;
+import com.example.davchen.skibuddies.Fragments.EventTab;
 import com.example.davchen.skibuddies.Fragments.ProfileTab;
 import com.example.davchen.skibuddies.Fragments.ViewPageAdapter;
+import com.parse.ParseFacebookUtils;
+import com.parse.ParseUser;
 
 public class SecondActivity extends AppCompatActivity {
 
@@ -25,7 +29,10 @@ public class SecondActivity extends AppCompatActivity {
     private String name = null;
     private String userId = null;
     private ProfileTab profileTab;
+    private EventTab eventTab;
     private CharSequence[] charSequenceTitles=new CharSequence[]{"Profile","Events", "Invitation"};
+
+    private static final String TAG = SecondActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +66,12 @@ public class SecondActivity extends AppCompatActivity {
         userId = intent.getStringExtra("Id");
 
         profileTab = new ProfileTab();
+        eventTab = new EventTab();
         Bundle bundle = new Bundle();
         bundle.putString("Name", name);
         bundle.putString("Id", userId);
         profileTab.setArguments(bundle);
+        eventTab.setArguments(bundle);
 
     }
 
@@ -97,6 +106,19 @@ public class SecondActivity extends AppCompatActivity {
             Intent intent = new Intent(this, CreateEvent.class);
             startActivity(intent);
             return true;
+        }
+
+        if(id==R.id.logout) {
+            ParseUser.logOut();
+            try{
+                Intent intent = new Intent(SecondActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            }catch(Exception e){
+                Log.e(TAG, e.toString());
+            }
         }
 
 //        if(id == R.id.searchBar1) {

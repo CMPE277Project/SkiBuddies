@@ -21,12 +21,12 @@ public class Session extends ParseObject
         return getString("SessionId");
     }
 
-    public void setEventId(String id) {
-        put("EventId", id);
+    public void setEventId(ParseObject parseObject) {
+        put("EventId", parseObject);
     }
 
-    public String getEventId() {
-        return getString("EventId");
+    public ParseObject getEventId() {
+        return getParseObject("EventId");
     }
 
     public void setUserId(ParseUser parseUser) {
