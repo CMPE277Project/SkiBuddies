@@ -1,6 +1,5 @@
 package com.example.davchen.skibuddies.Fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,12 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.davchen.skibuddies.Model.Event;
 import com.example.davchen.skibuddies.Model.Invitation;
 import com.example.davchen.skibuddies.R;
 import com.parse.FindCallback;
@@ -64,7 +61,7 @@ public class InviteTab extends Fragment {
     private void queryEventListFromParse() {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Invitation");
-        query.whereEqualTo("Participants", ParseUser.getCurrentUser());
+        query.whereNotEqualTo("Participants", ParseUser.getCurrentUser());
         query.whereEqualTo("Status", "0");
         query.include("EventId");
         //query.orderByDescending("createAt");
