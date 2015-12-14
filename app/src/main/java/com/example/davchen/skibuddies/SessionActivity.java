@@ -30,8 +30,11 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -42,10 +45,9 @@ import java.util.List;
 
 //import android.text.format.DateFormat;
 
-
 public class SessionActivity extends AppCompatActivity implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
 
-//add for google part
+    //add for google part
     static final LatLng MyPoint = new LatLng(21 , 57);
     private GoogleMap googleMap;
     private GoogleApiClient mGoogleApiClient;   //use googleApiClient to get google service
@@ -62,7 +64,7 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
 
     //for share location
     private Session session;
-
+    private List<Session> sessionList;
 
     private static final String REQUESTING_LOCATION_UPDATES_KEY = "request_location_update_key";
     private static final String LOCATION_KEY = "location_key";
@@ -77,11 +79,14 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
 
     private TextView distanceTV;    //textview to show the distance
 
+    private static final String TAG = Session.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
 
+        sessionList = new ArrayList<Session>();
         session = new Session();
 
         //get map
@@ -124,7 +129,6 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
             }
         });
 
-
         endButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,20 +142,17 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
 
     }
 
-
     public void startRecord()
     {
         System.out.println("in startRecord *****************************************");
         track = new PolylineOptions();
         track.color(Color.GREEN).width(3);
 
-
         //refresh the new point
         LatLng myLng = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
         mLastLocation = mCurrentLocation;   //for calculate the distance
 
     }
-
 
     public void endRecord()
     {
@@ -161,9 +162,7 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
         poly = googleMap.addPolyline(track);
         distanceTV.setText("Distance: "+Math.round(distance)+ " m");
 
-
         //store the distance to parse
-
 
     }
 
@@ -173,11 +172,8 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
         System.out.println("in method onMapReady *************************************");
         LatLng mapCenter = new LatLng(-33.867, 151.206);    //sydney
 
-
         map.setMyLocationEnabled(true);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 13));
-
-
 
 //add a marker
 //        map.addMarker(new MarkerOptions()
@@ -217,15 +213,12 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
         super.onStop();
     }
 
-
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        // Inflate the menu; this adds items to the action bar if it is present.
 //        getMenuInflater().inflate(R.menu.menu_session_activity, menu);
 //        return true;
 //    }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -242,7 +235,6 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
         return super.onOptionsItemSelected(item);
     }
 
-
     //required by ConnectionCallback
     @Override
     public void onConnectionSuspended(int cause) {
@@ -250,7 +242,6 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
         // Disable any UI components that depend on Google APIs
         // until onConnected() is called.
     }
-
 
     //required by ConnectionCallback
     @Override
@@ -267,12 +258,10 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
 
         //get location update
 //        if (mRequestingLocationUpdates) {
-              startLocationUpdates();
+        startLocationUpdates();
 //        }
 
     }
-
-
 
     //get location update
     protected void createLocationRequest() {
@@ -287,7 +276,6 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
         mRequestingLocationUpdates = true;
     }
 
-
     //required by LocationListener
     //update the current location
     @Override
@@ -301,8 +289,6 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 20);
         googleMap.animateCamera(cameraUpdate);
         //locationManager.removeUpdates(this);
-
-
 
         // draw the track line
         if(RECORD_FLAG == true) {
@@ -334,7 +320,7 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
         session.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if(e==null){
+                if (e == null) {
                     Log.d("Message", "Saving in background");
                 }
             }
@@ -346,15 +332,49 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
     public void getFriendLocation(){
         List<Location> result = new ArrayList<Location>();
 
+        ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Session");
+        parseQuery.whereNotEqualTo("UserId", ParseUser.getCurrentUser());
+        parseQuery.include("Location");
+        parseQuery.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+                    sessionList.clear();
+                    for (ParseObject newobjects : objects) {
+                        sessionList.add((Session) newobjects);
+                    }
+                    //updateLocations();
 
-        for(int i = 0; i<result.size(); i++)
+                } else {
+                    Log.d(TAG, "Error could not retrieve session objects");
+                }
+            }
+        });
+
+        if(sessionList.size()>0)
         {
-            LatLng friendLatLng = new LatLng(37.7750, 122.4183);
+            Log.d(TAG, "I can see the friends");
+        }
+        else
+        {
+            Log.d(TAG, "I cannot see the friends");
+        }
+
+
+        for(int i = 0; i<sessionList.size(); i++)
+        {
+            ParseGeoPoint friendParseLocation =sessionList.get(i).getLocation();
+            double latitude = friendParseLocation.getLatitude();
+            double longitude = friendParseLocation.getLongitude();
+            String friendName = sessionList.get(i).getUserId().getUsername();
+
+//            LatLng friendLatLng = new LatLng(37.7750, 122.4183);
+            LatLng friendLatLng = new LatLng(latitude, longitude);
             Marker marker = googleMap.addMarker(new MarkerOptions()
 //                    .position(new LatLng(37.7750, 122.4183))
                     .position(friendLatLng)
-                    .title("San Francisco")
-                    .snippet("Population: 776733"));
+//                    .title("San Francisco")
+                    .snippet(friendName));
         }
 
     }
@@ -381,7 +401,6 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
         }
     }
 
-
     //required by OnConnectionFailedListener
     @Override
     public void onConnectionFailed(ConnectionResult result) {
@@ -405,9 +424,7 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
             mResolvingError = true;
         }
 
-
     }
-
 
     //Once the user completes the resolution provided by startResolutionForResult() or getError,
     //activity receives the  onActivityResult() callback with the RESULT_OK result code.
@@ -426,7 +443,6 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
         }
     }
 
-
     //To avoid executing the code in onConnectionFailed() while a previous attempt to resolve an error is ongoing
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -439,9 +455,7 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
         outState.putString(LAST_UPDATED_TIME_STRING_KEY, mLastUpdateTime);
         super.onSaveInstanceState(outState);
 
-
     }
-
 
     //for save the state for receiving location updates
     private void updateValuesFromBundle(Bundle savedInstanceState) {
@@ -471,6 +485,5 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
 
         }
     }
-
 
 }

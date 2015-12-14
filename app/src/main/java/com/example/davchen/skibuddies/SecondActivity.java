@@ -69,8 +69,9 @@ public class SecondActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater menuInflater = getMenuInflater();
        // getMenuInflater().inflate(R.menu.menu_second, menu);
+        MenuInflater menuInflater = getMenuInflater();
+        // getMenuInflater().inflate(R.menu.menu_second, menu);
         menuInflater.inflate(R.menu.menu_second, menu);
         SearchManager searchManager =  (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView =
@@ -93,14 +94,14 @@ public class SecondActivity extends AppCompatActivity {
         }
 
         if(id == R.id.createEventMenu) {
-            Intent intent = new Intent(this, NewEventActivity.class);
+            Intent intent = new Intent(this, CreateEvent.class);
             startActivity(intent);
             return true;
         }
 
-        if(id == R.id.searchBar1) {
-
-        }
+//        if(id == R.id.searchBar1) {
+//
+//        }
 
         return super.onOptionsItemSelected(item);
     }

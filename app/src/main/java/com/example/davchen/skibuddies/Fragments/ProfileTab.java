@@ -68,11 +68,9 @@ public class ProfileTab extends Fragment {
 
     private void queryFriendShipRequest() {
 
-       // ParseRelation
        final ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Friendship");
-        //ParseRelation<FriendShip> parseQuery =
         parseQuery.whereEqualTo("accepterId", ParseUser.getCurrentUser());
-        parseQuery.whereEqualTo("Status", "pending");
+        parseQuery.whereEqualTo("Status", "Accepted");
         parseQuery.include("requesterId");
         parseQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -82,21 +80,8 @@ public class ProfileTab extends Fragment {
                     parseUserList.clear();
                     for (ParseObject parseObject : objects) {
                         parseUserList.add((FriendShip) parseObject);
-                        //ParseObject obj1;
-//                        parseObject.fetchIfNeededInBackground(new GetCallback<ParseObject>() {
-//                            @Override
-//                            public void done(ParseObject object, ParseException e) {
-//                                if(e==null){
-//                                      obj1 = object.getParseUser("requesterId");
-//                                }
-//                            }
-//
-//                        });
-//                        parseUserList.add((FriendShip) obj1);
 
                     }
-                    //Log.d("Friend", parseUserList.get(0).getUsername());
-                    Log.d("Messgae", "Inside");
                     updateFriendsList();
 
                 } else {
@@ -120,8 +105,8 @@ public class ProfileTab extends Fragment {
 
                  ProfilePictureView profilePictureView1 = (ProfilePictureView)convertView.findViewById(R.id.userProfileName11);
                  TextView textView = (TextView)convertView.findViewById(R.id.IDNameOfPerson);
-                 Button button = (Button)convertView.findViewById(R.id.accept);
-                 Button button1 = (Button)convertView.findViewById(R.id.reject);
+                 final Button button = (Button)convertView.findViewById(R.id.accept);
+                 final Button button1 = (Button)convertView.findViewById(R.id.reject);
 
                 profilePictureView1.setProfileId(parseUserList.get(position).getFrom().getString("UserId"));
                 // textView.setText(parseUserList.get(position).getFrom().getUsername());
@@ -131,6 +116,8 @@ public class ProfileTab extends Fragment {
                      @Override
                      public void onClick(View v) {
                          acceptFriendRequest(position);
+//                         button.setVisibility(View.GONE);
+//                         button1.setText("Delete");
                      }
                  });
 
@@ -191,6 +178,23 @@ public class ProfileTab extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(), "Accepted " + parseUser.getFrom() + "Friend request", Toast.LENGTH_LONG).show();
             }
         });
+
+        friendShip.setAccepterId(parseUser.getFrom());
+        friendShip.setFrom(otherUser);
+        friendShip.setStatus("Accepted");
+        friendShip.setDate(new Date());
+        friendShip.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e==null) {
+                    Log.d(TAG, "Successfully Saved");
+                }
+                else{
+                    //e
+                }
+            }
+        });
+
 
     }
 
