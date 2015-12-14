@@ -162,6 +162,9 @@ public class SessionActivity extends AppCompatActivity implements OnMapReadyCall
         poly = googleMap.addPolyline(track);
         distanceTV.setText("Distance: "+Math.round(distance)+ " m");
 
+        //store to parse
+        session.setDistance(String.valueOf(distance));
+
         //store the distance to parse
 
     }
