@@ -28,7 +28,7 @@ public class SkiBuddiesApplication extends Application {
 
         // Add your initialization code here
         Parse.initialize(this, appId, clientKey);
-        ParseInstallation.getCurrentInstallation().saveInBackground();
+        //ParseInstallation.getCurrentInstallation().saveInBackground();
 
         ParseFacebookUtils.initialize(this);
 

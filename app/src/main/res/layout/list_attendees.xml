@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:padding="16dp" android:paddingRight="16dp" android:paddingLeft="16dp"
+    >
+    <com.facebook.login.widget.ProfilePictureView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bioName"
+        android:maxHeight="30dp"
+        android:maxWidth="30dp">
+
+    </com.facebook.login.widget.ProfilePictureView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:id="@+id/bioTextName"
+        android:layout_toRightOf="@id/bioName"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="35dp"/>
+
+</RelativeLayout>

@@ -56,6 +56,13 @@ public class Event extends ParseObject {
         put("StartTime", startTime);
     }
 
+    public void setStatus(String status) {
+        put("Status", status);
+    }
+    public String getStatus() {
+        return getString("Status");
+    }
+
     public String getEndTime(){
         return getString("EndTime");
     }

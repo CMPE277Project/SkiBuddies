@@ -22,4 +22,5 @@
     <string name="search_hint">Search Friends</string>
     <string name="title_activity_search_results">SearchResultsActivity</string>
     <string name="title_activity_create_event">CreateEvent</string>
+    <string name="title_activity_user_bio_details">UserBioDetails</string>
 </resources>

@@ -22,7 +22,9 @@ import com.parse.SaveCallback;
 
 import org.json.JSONException;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button button;
     private String name;
     private String userId;
+    private String date;
     private ParseUser parseuser;
     private Button createEventBtn;
 
@@ -38,9 +41,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button testButton;
     private Intent intent;
 
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
     private static final String TAG = MainActivity.class.getSimpleName();
-
 
 
         @Override
@@ -49,36 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             setContentView(R.layout.activity_main);
 
 
-            createEventBtn = (Button) findViewById(R.id.create_event);
-            createEventBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, NewEventActivity.class);
-                    startActivity(intent);
-                }
-            });
-
-            getEventBtn = (Button) findViewById(R.id.get_event);
-            getEventBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, EventDetail.class);
-                    startActivity(intent);
-                }
-            });
-
             button = (Button) findViewById(R.id.button);
             button.setOnClickListener(this);
-
-	    //fortest
-       	    testButton = (Button)findViewById(R.id.testbutton);
-            testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(MainActivity.this, EventInformation.class);
-                startActivity(intent);
-            }
-        });
 
 
         }
@@ -120,9 +95,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void done(ParseUser user, ParseException e) {
 
                     if (user == null) {
-                        Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
+                        Log.d(TAG, "Uh oh. The user cancelled the Facebook login.");
                     } else if (user.isNew()) {
-                        Log.d("MyApp", "User signed up and logged in through Facebook!");
+                        Log.d(TAG, "User signed up and logged in through Facebook!");
                         getUserDetailsFromFB();
                     } else {
                         getUserDetailsFromParse();
@@ -156,6 +131,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             parseuser = ParseUser.getCurrentUser();
             name = parseuser.getUsername();
             userId = parseuser.getString("UserId");
+            Date date1 = parseuser.getCreatedAt();
+            date = simpleDateFormat.format(date1);
+
             Log.d("Name: ", name);
             Toast.makeText(getApplicationContext(), "Hello "+name, Toast.LENGTH_LONG).show();
             try {
@@ -193,6 +171,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this, SecondActivity.class);
             intent.putExtra("Name", name);
             intent.putExtra("Id", userId);
+            intent.putExtra("Date", date);
             startActivity(intent);
         }
     }

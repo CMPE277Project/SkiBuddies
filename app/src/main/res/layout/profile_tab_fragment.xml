@@ -26,13 +26,16 @@
         android:layout_marginTop="50dp"
         android:layout_marginLeft="15dp"/>
 
-        <Button
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/viewRecordButton"
-            android:text="View Record"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="38dp"/>
+            android:id="@+id/dateMember"
+            android:layout_alignBottom="@id/facebookProfileId"
+            android:hint="Date"
+            android:layout_toRightOf="@id/facebookProfileId"
+            android:paddingLeft="15dp"
+            />
+
 
     </RelativeLayout>
 
